@@ -1,0 +1,5 @@
+<launch>
+
+  <node name="diff_drive_kinematic_controller" pkg="kinematics_rb1" type="kinematic_controller" output="screen" />
+
+</launch>

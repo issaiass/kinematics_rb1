@@ -1,0 +1,5 @@
+<launch>
+
+  <node name="diff_drive_twist_to_diff" pkg="kinematics_rb1" type="diff_drive" output="screen" />
+
+</launch>

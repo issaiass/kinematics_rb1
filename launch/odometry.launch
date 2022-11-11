@@ -1,0 +1,7 @@
+<launch>
+  <arg name="rvizconfig" default="$(find kinematics_rb1)/rviz/odometry_rb1_display.rviz" />
+
+  <node name="diff_drive_odometry" pkg="kinematics_rb1" type="odometry" output="screen" />
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" output="screen" />
+
+</launch>
