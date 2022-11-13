@@ -8,7 +8,7 @@ Panels:
         - /Status1
         - /DepthCloud1/Auto Size1
         - /Odometry1
-        - /Odometry1/Shape1
+        - /Pose1
       Splitter Ratio: 0.5
     Tree Height: 558
   - Class: rviz/Selection
@@ -204,42 +204,30 @@ Visualization Manager:
         Alpha: 1
         Axes Length: 1
         Axes Radius: 0.10000000149011612
-        Color: 0; 255; 0
-        Head Length: 0.10000000149011612
-        Head Radius: 0.05000000074505806
-        Shaft Length: 0.05000000074505806
+        Color: 255; 25; 0
+        Head Length: 0.30000001192092896
+        Head Radius: 0.10000000149011612
+        Shaft Length: 1
         Shaft Radius: 0.05000000074505806
         Value: Arrow
       Topic: /rb1_odom
       Unreliable: false
       Value: true
-    - Class: rviz/TF
+    - Alpha: 1
+      Axes Length: 1
+      Axes Radius: 0.10000000149011612
+      Class: rviz/Pose
+      Color: 255; 25; 0
       Enabled: true
-      Frame Timeout: 15
-      Frames:
-        All Enabled: true
-        link_chassis:
-          Value: true
-        link_left_wheel:
-          Value: true
-        link_right_wheel:
-          Value: true
-        rb1_odom:
-          Value: true
-      Marker Alpha: 1
-      Marker Scale: 1
-      Name: TF
-      Show Arrows: true
-      Show Axes: true
-      Show Names: true
-      Tree:
-        rb1_odom:
-          link_chassis:
-            link_left_wheel:
-              {}
-            link_right_wheel:
-              {}
-      Update Interval: 0
+      Head Length: 0.30000001192092896
+      Head Radius: 0.10000000149011612
+      Name: Pose
+      Queue Size: 10
+      Shaft Length: 1
+      Shaft Radius: 0.05000000074505806
+      Shape: Arrow
+      Topic: /move_base_simple/goal
+      Unreliable: false
       Value: true
   Enabled: true
   Global Options:
@@ -269,7 +257,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 6.473071098327637
+      Distance: 10
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -277,17 +265,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 1.3788597583770752
-        Y: 0.7780829071998596
-        Z: -0.19529561698436737
+        X: 0
+        Y: 4.76837158203125e-07
+        Z: 0
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.4353978633880615
+      Pitch: 0.7853980660438538
       Target Frame: <Fixed Frame>
-      Yaw: 0.07539764046669006
+      Yaw: 0.7853979468345642
     Saved: ~
 Window Geometry:
   Displays:

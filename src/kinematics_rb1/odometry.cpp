@@ -1,3 +1,4 @@
+#include "ros/topic.h"
 #include <kinematics_rb1/odometry.hpp>
 
 void Odom::rb1_getTicks(const kinematics_rb1::encoders::ConstPtr &msg) {
@@ -18,9 +19,8 @@ Odom::Odom(ros::NodeHandle &nh) :  nh_(nh),
     ticks_sub =  nh.subscribe<kinematics_rb1::encoders>("/encoders", 100, &Odom::rb1_getTicks, this);
     odom_pub = nh.advertise<nav_msgs::Odometry> ("/rb1_odom", 100);  
     clock = nh.subscribe<rosgraph_msgs::Clock>("/clock", 100, &Odom::rb1_clock_cb, this);
-    while(clock.getNumPublishers() <= 0) {
+    while(clock.getNumPublishers() <= 0)
        ROS_INFO_STREAM("WAITING FOR CLOCK");
-    }
     updatePose();
 }
 
@@ -65,19 +65,14 @@ void Odom::updatePose(void) {
         geometry_msgs::Quaternion odom_quat = tf::createQuaternionMsgFromYaw(th);
         
         //first, we'll publish the transform over tf
-        geometry_msgs::TransformStamped odom_trans;
-        odom_trans.header.stamp = current_time;
-        odom_trans.header.frame_id = "rb1_odom";
-        odom_trans.child_frame_id = "link_chassis";
-
-        odom_trans.transform.translation.x = x;
-        odom_trans.transform.translation.y = y;
-        odom_trans.transform.translation.z = 0.0;
-        odom_trans.transform.rotation = odom_quat;
-
-        //send the transform
-        tf::TransformBroadcaster odom_broadcaster;
-        odom_broadcaster.sendTransform(odom_trans);
+        static_transformStamped.header.stamp = current_time;
+        static_transformStamped.header.frame_id = "rb1_odom";
+        static_transformStamped.child_frame_id = "link_chassis";
+        static_transformStamped.transform.translation.x = x;
+        static_transformStamped.transform.translation.y = y;
+        static_transformStamped.transform.translation.z = 0;
+        static_transformStamped.transform.rotation = odom_quat;
+        static_broadcaster.sendTransform(static_transformStamped);
 
         //next, we'll publish the odometry message over ROS
         nav_msgs::Odometry odom;
@@ -100,18 +95,6 @@ void Odom::updatePose(void) {
         odom_pub.publish(odom);
 
         last_time = current_time;
-
-        static_transformStamped.header.stamp = ros::Time::now();
-        static_transformStamped.header.frame_id = "rb1_odom";
-        static_transformStamped.child_frame_id = "link_chassis";
-        static_transformStamped.transform.translation.x = x;
-        static_transformStamped.transform.translation.y = y;
-        static_transformStamped.transform.translation.z = 0;
-        static_transformStamped.transform.rotation.x = odom_quat.x;
-        static_transformStamped.transform.rotation.y = odom_quat.y;
-        static_transformStamped.transform.rotation.z = odom_quat.z;
-        static_transformStamped.transform.rotation.w = odom_quat.w;
-        static_broadcaster.sendTransform(static_transformStamped);
 
         rate.sleep();
     }

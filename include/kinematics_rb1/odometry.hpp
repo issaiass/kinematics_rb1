@@ -14,7 +14,7 @@ class  Odom {
 public:
     Odom(ros::NodeHandle &nh);
     void rb1_getTicks(const kinematics_rb1::encoders::ConstPtr &msg);
-    void rb1_clock_cb(const rosgraph_msgs::Clock::ConstPtr & msg);
+    void rb1_clock_cb(const rosgraph_msgs::Clock::ConstPtr &msg);
 
 private:  
     void updatePose(void);

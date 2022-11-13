@@ -15,8 +15,8 @@ DiffDrive::DiffDrive(ros::NodeHandle &nh) : nh_(nh) {
 }
 
 void DiffDrive::convertVelocities(void) {
-  vr.data = (2.0*twist_vels.linear.x + twist_vels.angular.z*k_L)/(2*k_R);
-  vl.data = (2.0*twist_vels.linear.x - twist_vels.angular.z*k_L)/(2*k_R);
+  vr.data = (2.0*twist_vels.linear.x - twist_vels.angular.z*k_L)/(2*k_R);
+  vl.data = (2.0*twist_vels.linear.x + twist_vels.angular.z*k_L)/(2*k_R);
   ROS_INFO_STREAM("vr:"<< vr.data << " , vl: " << vl.data);
 }
 
